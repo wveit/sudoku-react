@@ -21,10 +21,14 @@ export function SudokuBoard({
   selectedCell,
   notes,
 }: SudokuBoardProps) {
+  const selectedValue = puzzle[selectedCell] || -1;
+
   function classNames(value: number, index: number) {
     let className = "SudokuBoard--cellContent";
     if (index === selectedCell)
       className += " SudokuBoard--cellContent-selected";
+    if (value === selectedValue)
+      className += " SudokuBoard--cellContent-selectedValue";
     if (solvedPuzzle && value && value !== solvedPuzzle[index])
       className += " SudokuBoard--cellContent-mistake";
     else if (unsolvedPuzzle && value && value !== unsolvedPuzzle[index])
@@ -38,7 +42,13 @@ export function SudokuBoard({
       className={classNames(value, index)}
       onClick={() => onCellClick(index)}
     >
-      {value || <CellNotes notes={notes} cellIndex={index} />}
+      {value || (
+        <CellNotes
+          notes={notes}
+          cellIndex={index}
+          highlightValue={selectedValue}
+        />
+      )}
     </div>
   ));
 
@@ -65,18 +75,30 @@ export function SudokuGrid({ children }: { children: ReactNode }) {
 interface CellNotesProps {
   notes?: Notes;
   cellIndex: number;
+  highlightValue: number;
 }
-function CellNotes({ notes, cellIndex }: CellNotesProps) {
+function CellNotes({ notes, cellIndex, highlightValue }: CellNotesProps) {
   if (!notes) return null;
 
   const nums = range(1, 9);
   return (
     <div className="CellNotes">
-      {nums.map((num) => (
-        <div key={num} className="CellNotes--note">
-          {hasNote(notes, cellIndex, num) ? num : <span>&zwnj;</span>}
-        </div>
-      ))}
+      {nums.map((num) => {
+        const show = hasNote(notes, cellIndex, num);
+        return (
+          <div
+            key={num}
+            className={
+              "CellNotes--note" +
+              (show && highlightValue === num
+                ? " CellNotes--note-highlighted"
+                : "")
+            }
+          >
+            {show ? num : <span>&zwnj;</span>}
+          </div>
+        );
+      })}
     </div>
   );
 }

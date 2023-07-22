@@ -40,6 +40,10 @@
   border: 2px solid green;
 }
 
+.SudokuBoard--cellContent-selectedValue {
+  background-color: lightblue;;
+}
+
 .SudokuBoard--cellContent-mistake {
   color: red;
 }
@@ -61,4 +65,8 @@
   align-items: center;
   justify-content: center;
   margin: 0 2px;
+}
+
+.CellNotes--note-highlighted {
+  background-color: lightblue;
 }
