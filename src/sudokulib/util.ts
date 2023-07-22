@@ -75,3 +75,11 @@ export function getAllCellNeighbors(cell: number) {
   ]);
   return Array.from(set);
 }
+
+export function calculateHowManyLeft(puzzle: Puzzle, solved: Puzzle) {
+  const valueMap = "9".repeat(10).split("").map(Number);
+  puzzle.forEach((val: number, index: number) => {
+    if (val === solved[index]) valueMap[val]--;
+  });
+  return valueMap;
+}

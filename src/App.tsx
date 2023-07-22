@@ -10,7 +10,7 @@ import {
 import { NewGameButton } from "./components/NewGameButton";
 import { ToggleButton, useToggle } from "./components/ToggleButton";
 import { puzzleIsSolved } from "./sudokulib/puzzle-solver";
-
+import { calculateHowManyLeft } from "./sudokulib/util";
 export default function App() {
   const [selectedCell, setSelectedCell] = useState(0);
   const { unsolvedPuzzle, difficulty, makeNewPuzzle } = useUnsolvedPuzzle();
@@ -20,6 +20,7 @@ export default function App() {
   const { notes, updateNotes, reactNotesToCellChange } =
     useNotes(unsolvedPuzzle);
   const gameIsWon = puzzleIsSolved(puzzle);
+  const howManyLeft = calculateHowManyLeft(puzzle, solvedPuzzle);
 
   useEffect(() => {
     if (gameIsWon) alert("You won!!!");
@@ -58,7 +59,7 @@ export default function App() {
           Notes
         </ToggleButton>
       </div>
-      <NumberBar onNumberClick={handleNumberClick} />
+      <NumberBar onNumberClick={handleNumberClick} howManyLeft={howManyLeft} />
     </div>
   );
 }
