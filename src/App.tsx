@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SudokuBoard } from "./components/SudokuBoard";
 import { NumberBar } from "./components/NumberBar";
 import {
@@ -9,6 +9,7 @@ import {
 } from "./hooks/puzzleHooks";
 import { NewGameButton } from "./components/NewGameButton";
 import { ToggleButton, useToggle } from "./components/ToggleButton";
+import { puzzleIsSolved } from "./sudokulib/puzzle-solver";
 
 export default function App() {
   const [selectedCell, setSelectedCell] = useState(0);
@@ -18,6 +19,11 @@ export default function App() {
   const [notesOn, toggleNotes] = useToggle(false);
   const { notes, updateNotes, reactNotesToCellChange } =
     useNotes(unsolvedPuzzle);
+  const gameIsWon = puzzleIsSolved(puzzle);
+
+  useEffect(() => {
+    if (gameIsWon) alert("You won!!!");
+  }, [gameIsWon]);
 
   function handleNumberClick(num: number) {
     if (notesOn && !puzzle[selectedCell]) {
