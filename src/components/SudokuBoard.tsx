@@ -5,12 +5,32 @@ type Puzzle = number[];
 
 interface SudokuBoardProps {
   puzzle: Puzzle;
+  onCellClick: (index: number) => void;
+  selectedCell: number;
 }
 
-export function SudokuBoard({ puzzle }: SudokuBoardProps) {
-  const puzzleElements: ReactElement[] = puzzle.map((val, index) => (
-    <div key={index}>{val || " "}</div>
+export function SudokuBoard({
+  puzzle,
+  onCellClick,
+  selectedCell,
+}: SudokuBoardProps) {
+  function classNames(value: number, index: number) {
+    let className = "SudokuBoard--cellContent";
+    if (index === selectedCell)
+      className += " SudokuBoard--cellContent-selected";
+    return className;
+  }
+
+  const puzzleElements: ReactElement[] = puzzle.map((value, index) => (
+    <div
+      key={index}
+      className={classNames(value, index)}
+      onClick={() => onCellClick(index)}
+    >
+      {value || null}
+    </div>
   ));
+
   return <SudokuGrid>{puzzleElements}</SudokuGrid>;
 }
 
