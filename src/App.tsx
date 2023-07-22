@@ -7,12 +7,14 @@ import {
   useUnsolvedPuzzle,
 } from "./hooks/puzzleHooks";
 import { NewGameButton } from "./components/NewGameButton";
+import { ToggleButton, useToggle } from "./components/ToggleButton";
 
 export default function App() {
   const [selectedCell, setSelectedCell] = useState(0);
   const { unsolvedPuzzle, difficulty, makeNewPuzzle } = useUnsolvedPuzzle();
   const { solvedPuzzle } = useSolvedPuzzle(unsolvedPuzzle);
   const { puzzle, updatePuzzle } = usePlayerPuzzle(unsolvedPuzzle);
+  const [notesOn, toggleNotes] = useToggle(false);
 
   function handleNumberClick(num: number) {
     if (puzzle[selectedCell] !== solvedPuzzle[selectedCell])
@@ -33,6 +35,11 @@ export default function App() {
         onCellClick={setSelectedCell}
         selectedCell={selectedCell}
       />
+      <div className="flex">
+        <ToggleButton isOn={notesOn} onToggle={toggleNotes}>
+          Notes
+        </ToggleButton>
+      </div>
       <NumberBar onNumberClick={handleNumberClick} />
     </div>
   );

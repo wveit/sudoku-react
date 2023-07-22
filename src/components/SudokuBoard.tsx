@@ -1,4 +1,4 @@
-import { Children, ReactElement } from "react";
+import { Children, ReactNode } from "react";
 import { cellsInEachSquare } from "../sudokulib/util";
 
 import type { Puzzle } from "../sudokulib/puzzles";
@@ -29,7 +29,7 @@ export function SudokuBoard({
     return className;
   }
 
-  const puzzleElements: ReactElement[] = puzzle.map((value, index) => (
+  const puzzleElements: ReactNode = puzzle.map((value, index) => (
     <div
       key={index}
       className={classNames(value, index)}
@@ -42,7 +42,7 @@ export function SudokuBoard({
   return <SudokuGrid>{puzzleElements}</SudokuGrid>;
 }
 
-export function SudokuGrid({ children }: { children: ReactElement[] }) {
+export function SudokuGrid({ children }: { children: ReactNode }) {
   const childArray = Children.toArray(children);
   return (
     <div className="SudokuBoard">
