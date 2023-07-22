@@ -2,6 +2,7 @@ import { useState } from "react";
 import { SudokuBoard } from "./components/SudokuBoard";
 import { NumberBar } from "./components/NumberBar";
 import {
+  useNotes,
   usePlayerPuzzle,
   useSolvedPuzzle,
   useUnsolvedPuzzle,
@@ -15,10 +16,17 @@ export default function App() {
   const { solvedPuzzle } = useSolvedPuzzle(unsolvedPuzzle);
   const { puzzle, updatePuzzle } = usePlayerPuzzle(unsolvedPuzzle);
   const [notesOn, toggleNotes] = useToggle(false);
+  const { notes, updateNotes } = useNotes(unsolvedPuzzle);
 
   function handleNumberClick(num: number) {
-    if (puzzle[selectedCell] !== solvedPuzzle[selectedCell])
+    if (notesOn && !puzzle[selectedCell]) {
+      updateNotes(selectedCell, num);
+    } else if (
+      !notesOn &&
+      puzzle[selectedCell] !== solvedPuzzle[selectedCell]
+    ) {
       updatePuzzle(selectedCell, num);
+    }
   }
 
   return (
@@ -34,6 +42,7 @@ export default function App() {
         unsolvedPuzzle={unsolvedPuzzle}
         onCellClick={setSelectedCell}
         selectedCell={selectedCell}
+        notes={notes}
       />
       <div className="flex">
         <ToggleButton isOn={notesOn} onToggle={toggleNotes}>
