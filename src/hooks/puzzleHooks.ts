@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react";
-import {
-  Difficulty,
-  Puzzle,
-  parsePuzzle,
-  puzzle1String,
-} from "../sudokulib/puzzles";
+import type { Difficulty, Puzzle } from "../sudokulib/puzzles";
 import { solve } from "../sudokulib/puzzle-solver";
-
-const defaultPuzzle = parsePuzzle(puzzle1String);
+import { generatePuzzle } from "../sudokulib/puzzle-generator";
 
 export function useUnsolvedPuzzle() {
-  const [unsolvedPuzzle, setUnsolvedPuzzle] = useState<Puzzle>(defaultPuzzle);
+  const [unsolvedPuzzle, setUnsolvedPuzzle] = useState<Puzzle>(() =>
+    generatePuzzle("EASY")
+  );
 
   function makeNewPuzzle(difficulty: Difficulty) {
-    const newPuzzle = [...defaultPuzzle]; // TODO: replace this with actual puzzle generation
+    const newPuzzle = generatePuzzle(difficulty);
     setUnsolvedPuzzle(newPuzzle);
   }
 
