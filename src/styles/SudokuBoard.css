@@ -39,3 +39,7 @@
 .SudokuBoard--cellContent-selected {
   border: 2px solid green;
 }
+
+.SudokuBoard--cellContent-mistake {
+  color: red;
+}

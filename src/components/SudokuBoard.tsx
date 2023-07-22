@@ -5,12 +5,16 @@ type Puzzle = number[];
 
 interface SudokuBoardProps {
   puzzle: Puzzle;
+  solutionPuzzle?: Puzzle;
+  originalPuzzle?: Puzzle;
   onCellClick: (index: number) => void;
   selectedCell: number;
 }
 
 export function SudokuBoard({
   puzzle,
+  solutionPuzzle,
+  originalPuzzle,
   onCellClick,
   selectedCell,
 }: SudokuBoardProps) {
@@ -18,6 +22,8 @@ export function SudokuBoard({
     let className = "SudokuBoard--cellContent";
     if (index === selectedCell)
       className += " SudokuBoard--cellContent-selected";
+    if (solutionPuzzle && value && value !== solutionPuzzle[index])
+      className += " SudokuBoard--cellContent-mistake";
     return className;
   }
 
