@@ -1,4 +1,6 @@
-export function solveInPlace(puzzle: number[], index: number = 0): boolean {
+import type { Puzzle } from "./puzzles";
+
+export function solveInPlace(puzzle: Puzzle, index: number = 0): boolean {
   if (index >= 81) return true;
   if (puzzle[index]) return solveInPlace(puzzle, index + 1);
 
@@ -13,31 +15,31 @@ export function solveInPlace(puzzle: number[], index: number = 0): boolean {
   return false;
 }
 
-export function solve(puzzle: number[]): number[] {
+export function solve(puzzle: Puzzle): Puzzle {
   const newPuzzle = [...puzzle];
   solveInPlace(newPuzzle);
   return newPuzzle;
 }
 
-export function puzzleIsSolved(puzzle: number[]) {
+export function puzzleIsSolved(puzzle: Puzzle) {
   return puzzleIsFilled(puzzle) && puzzleIsValid(puzzle);
 }
 
-export function puzzleIsFilled(puzzle: number[]) {
+export function puzzleIsFilled(puzzle: Puzzle) {
   return (
     puzzle.length === 81 &&
     puzzle.filter((value) => value > 0 && value <= 9).length === 81
   );
 }
 
-export function puzzleIsValid(puzzle: number[]) {
+export function puzzleIsValid(puzzle: Puzzle) {
   return (
     puzzle.length === 81 &&
-    puzzle.filter((value, index) => cellIsValid(puzzle, index)).length === 81
+    puzzle.filter((_, index) => cellIsValid(puzzle, index)).length === 81
   );
 }
 
-export function cellIsValid(puzzle: number[], index: number) {
+export function cellIsValid(puzzle: Puzzle, index: number) {
   const value = puzzle[index];
   if (value === 0) return true;
 

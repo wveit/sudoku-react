@@ -1,5 +1,8 @@
 import { isDigit } from "./util";
 
+export type Difficulty = "EASY" | "MEDIUM" | "HARD";
+export type Puzzle = number[];
+
 export const puzzle1String = `
   003020600
   900305001

@@ -1,29 +1,31 @@
 import { useState } from "react";
 import { SudokuBoard } from "./components/SudokuBoard";
-import { puzzle1String, parsePuzzle } from "./sudokulib/puzzles";
-import { solve } from "./sudokulib/puzzle-solver";
 import { NumberBar } from "./components/NumberBar";
-
-const originalPuzzle = parsePuzzle(puzzle1String);
-const solution = solve(originalPuzzle);
+import {
+  usePlayerPuzzle,
+  useSolvedPuzzle,
+  useUnsolvedPuzzle,
+} from "./hooks/puzzleHooks";
 
 export default function App() {
   const [selectedCell, setSelectedCell] = useState(0);
-  const [puzzle, setPuzzle] = useState(() => parsePuzzle(puzzle1String));
+  const { unsolvedPuzzle, makeNewPuzzle } = useUnsolvedPuzzle();
+  const { solvedPuzzle } = useSolvedPuzzle(unsolvedPuzzle);
+  const { puzzle, updatePuzzle } = usePlayerPuzzle(unsolvedPuzzle);
 
   function handleNumberClick(num: number) {
-    const newPuzzle = [...puzzle];
-    newPuzzle[selectedCell] = num;
-    setPuzzle(newPuzzle);
+    if (puzzle[selectedCell] !== solvedPuzzle[selectedCell])
+      updatePuzzle(selectedCell, num);
   }
 
   return (
     <div>
       <h1>Sudoku</h1>
+      <button onClick={() => makeNewPuzzle("EASY")}>New Game</button>
       <SudokuBoard
         puzzle={puzzle}
-        solutionPuzzle={solution}
-        originalPuzzle={originalPuzzle}
+        solvedPuzzle={solvedPuzzle}
+        unsolvedPuzzle={unsolvedPuzzle}
         onCellClick={setSelectedCell}
         selectedCell={selectedCell}
       />

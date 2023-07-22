@@ -1,20 +1,20 @@
 import { Children, ReactElement } from "react";
 import { cellsInEachSquare } from "../sudokulib/util";
 
-type Puzzle = number[];
+import type { Puzzle } from "../sudokulib/puzzles";
 
 interface SudokuBoardProps {
   puzzle: Puzzle;
-  solutionPuzzle?: Puzzle;
-  originalPuzzle?: Puzzle;
+  solvedPuzzle?: Puzzle;
+  unsolvedPuzzle?: Puzzle;
   onCellClick: (index: number) => void;
   selectedCell: number;
 }
 
 export function SudokuBoard({
   puzzle,
-  solutionPuzzle,
-  originalPuzzle,
+  solvedPuzzle,
+  unsolvedPuzzle,
   onCellClick,
   selectedCell,
 }: SudokuBoardProps) {
@@ -22,9 +22,9 @@ export function SudokuBoard({
     let className = "SudokuBoard--cellContent";
     if (index === selectedCell)
       className += " SudokuBoard--cellContent-selected";
-    if (solutionPuzzle && value && value !== solutionPuzzle[index])
+    if (solvedPuzzle && value && value !== solvedPuzzle[index])
       className += " SudokuBoard--cellContent-mistake";
-    else if (originalPuzzle && value && value !== originalPuzzle[index])
+    else if (unsolvedPuzzle && value && value !== unsolvedPuzzle[index])
       className += " SudokuBoard--cellContent-playerValue";
     return className;
   }

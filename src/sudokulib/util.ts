@@ -1,3 +1,5 @@
+import type { Puzzle } from "./puzzles";
+
 export function isDigit(character: string): boolean {
   if (character.length === 1 && character >= "0" && character <= "9")
     return true;
@@ -19,7 +21,7 @@ export const cellsInEachSquare = Object.freeze(
   ])
 );
 
-export function printPuzzle(puzzle: number[]) {
+export function printPuzzle(puzzle: Puzzle) {
   let str = "";
   for (let row = 0; row < 9; row++) {
     if (row % 3 === 0) str += "--------------------\n";
@@ -33,7 +35,7 @@ export function printPuzzle(puzzle: number[]) {
   console.log(str);
 }
 
-export function range(first: number, last: number): number[] {
+export function range(first: number, last: number): Puzzle {
   const array = [];
   for (let i = first; i <= last; i++) {
     array.push(i);
