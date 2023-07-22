@@ -18,3 +18,25 @@ export const cellsInEachSquare = Object.freeze(
     x + 20,
   ])
 );
+
+export function printPuzzle(puzzle: number[]) {
+  let str = "";
+  for (let row = 0; row < 9; row++) {
+    if (row % 3 === 0) str += "--------------------\n";
+    for (let col = 0; col < 9; col++) {
+      if (col % 3 === 0) str += " | ";
+      str += puzzle[row * 9 + col];
+    }
+    str += " | \n";
+  }
+  str += "--------------------\n";
+  console.log(str);
+}
+
+export function range(first: number, last: number): number[] {
+  const array = [];
+  for (let i = first; i <= last; i++) {
+    array.push(i);
+  }
+  return array;
+}
