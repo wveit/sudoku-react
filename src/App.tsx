@@ -25,6 +25,7 @@ export default function App() {
       <SudokuBoard
         puzzle={puzzle}
         solutionPuzzle={solution}
+        originalPuzzle={originalPuzzle}
         onCellClick={setSelectedCell}
         selectedCell={selectedCell}
       />

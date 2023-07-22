@@ -24,6 +24,8 @@ export function SudokuBoard({
       className += " SudokuBoard--cellContent-selected";
     if (solutionPuzzle && value && value !== solutionPuzzle[index])
       className += " SudokuBoard--cellContent-mistake";
+    else if (originalPuzzle && value && value !== originalPuzzle[index])
+      className += " SudokuBoard--cellContent-playerValue";
     return className;
   }
 

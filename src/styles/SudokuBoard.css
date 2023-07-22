@@ -43,3 +43,7 @@
 .SudokuBoard--cellContent-mistake {
   color: red;
 }
+
+.SudokuBoard--cellContent-playerValue {
+  color: blue;
+}
