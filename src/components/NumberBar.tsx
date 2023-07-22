@@ -5,7 +5,6 @@ interface NumberBarProps {
   howManyLeft: number[];
 }
 export function NumberBar({ onNumberClick, howManyLeft }: NumberBarProps) {
-  console.log("How many left: \n" + JSON.stringify(howManyLeft));
   return (
     <div style={{ display: "flex" }}>
       {range(1, 9).map((num) => (
