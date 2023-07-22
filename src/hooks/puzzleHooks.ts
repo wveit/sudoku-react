@@ -4,16 +4,18 @@ import { solve } from "../sudokulib/puzzle-solver";
 import { generatePuzzle } from "../sudokulib/puzzle-generator";
 
 export function useUnsolvedPuzzle() {
+  const [difficulty, setDifficulty] = useState<Difficulty>("EASY");
   const [unsolvedPuzzle, setUnsolvedPuzzle] = useState<Puzzle>(() =>
-    generatePuzzle("EASY")
+    generatePuzzle(difficulty)
   );
 
   function makeNewPuzzle(difficulty: Difficulty) {
     const newPuzzle = generatePuzzle(difficulty);
+    setDifficulty(difficulty);
     setUnsolvedPuzzle(newPuzzle);
   }
 
-  return { unsolvedPuzzle, makeNewPuzzle };
+  return { unsolvedPuzzle, difficulty, makeNewPuzzle };
 }
 
 export function useSolvedPuzzle(unsolvedPuzzle: Puzzle) {

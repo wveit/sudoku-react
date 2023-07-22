@@ -1,2 +1,11 @@
 @import "./styles/SudokuBoard.css";
 @import "./styles/NewGameButton.css";
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.flex > * {
+  margin-right: 0.5rem;
+}

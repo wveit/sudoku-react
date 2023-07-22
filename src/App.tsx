@@ -10,7 +10,7 @@ import { NewGameButton } from "./components/NewGameButton";
 
 export default function App() {
   const [selectedCell, setSelectedCell] = useState(0);
-  const { unsolvedPuzzle, makeNewPuzzle } = useUnsolvedPuzzle();
+  const { unsolvedPuzzle, difficulty, makeNewPuzzle } = useUnsolvedPuzzle();
   const { solvedPuzzle } = useSolvedPuzzle(unsolvedPuzzle);
   const { puzzle, updatePuzzle } = usePlayerPuzzle(unsolvedPuzzle);
 
@@ -22,7 +22,10 @@ export default function App() {
   return (
     <div>
       <h1>Sudoku</h1>
-      <NewGameButton onNewGameRequest={makeNewPuzzle} />
+      <div className="flex">
+        <NewGameButton onNewGameRequest={makeNewPuzzle} />
+        <div>{difficulty}</div>
+      </div>
       <SudokuBoard
         puzzle={puzzle}
         solvedPuzzle={solvedPuzzle}
