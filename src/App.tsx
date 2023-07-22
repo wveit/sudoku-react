@@ -6,6 +6,7 @@ import {
   useSolvedPuzzle,
   useUnsolvedPuzzle,
 } from "./hooks/puzzleHooks";
+import { NewGameButton } from "./components/NewGameButton";
 
 export default function App() {
   const [selectedCell, setSelectedCell] = useState(0);
@@ -21,7 +22,7 @@ export default function App() {
   return (
     <div>
       <h1>Sudoku</h1>
-      <button onClick={() => makeNewPuzzle("EASY")}>New Game</button>
+      <NewGameButton onNewGameRequest={makeNewPuzzle} />
       <SudokuBoard
         puzzle={puzzle}
         solvedPuzzle={solvedPuzzle}

@@ -1,0 +1,27 @@
+.NewGameButton {
+  position: relative;
+}
+
+.NewGameButton--dropdown {
+  position: absolute;
+  top: 2rem;
+  left: 1rem;
+  z-index: 1;
+  background-color: white;
+  padding: 0.5rem;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.NewGameButton--item {
+  padding: 0.2rem;
+}
+
+.NewGameButton--item:hover {
+  background-color: lightgray;
+}
+
+.NewGameButton--dropdown.hidden {
+  display: none;
+}
