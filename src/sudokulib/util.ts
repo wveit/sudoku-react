@@ -42,3 +42,36 @@ export function range(first: number, last: number): Puzzle {
   }
   return array;
 }
+
+export function getRowNumber(index: number) {
+  return Math.floor(index / 9);
+}
+export function getColumnNumber(index: number) {
+  return index % 9;
+}
+export function getSquareNumber(index: number) {
+  const row = getRowNumber(index);
+  const column = getColumnNumber(index);
+  return Math.floor(row / 3) * 3 + Math.floor(column / 3);
+}
+
+export function getRowCells(row: number) {
+  return range(row * 9, row * 9 + 8);
+}
+
+export function getColumnCells(column: number) {
+  return range(0, 8).map((val) => val * 9 + column);
+}
+
+export function getSquareCells(square: number) {
+  return cellsInEachSquare[square];
+}
+
+export function getAllCellNeighbors(cell: number) {
+  const set = new Set<number>([
+    ...getRowCells(getRowNumber(cell)),
+    ...getColumnCells(getColumnNumber(cell)),
+    ...getSquareCells(getSquareNumber(cell)),
+  ]);
+  return Array.from(set);
+}

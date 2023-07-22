@@ -16,7 +16,8 @@ export default function App() {
   const { solvedPuzzle } = useSolvedPuzzle(unsolvedPuzzle);
   const { puzzle, updatePuzzle } = usePlayerPuzzle(unsolvedPuzzle);
   const [notesOn, toggleNotes] = useToggle(false);
-  const { notes, updateNotes } = useNotes(unsolvedPuzzle);
+  const { notes, updateNotes, reactNotesToCellChange } =
+    useNotes(unsolvedPuzzle);
 
   function handleNumberClick(num: number) {
     if (notesOn && !puzzle[selectedCell]) {
@@ -26,6 +27,8 @@ export default function App() {
       puzzle[selectedCell] !== solvedPuzzle[selectedCell]
     ) {
       updatePuzzle(selectedCell, num);
+      if (num === solvedPuzzle[selectedCell])
+        reactNotesToCellChange(selectedCell, num);
     }
   }
 

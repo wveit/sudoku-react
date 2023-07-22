@@ -1,3 +1,6 @@
+import { produce } from "immer";
+import { getAllCellNeighbors } from "./util";
+
 export type Notes = boolean[][];
 
 export function newNotes(): Notes {
@@ -13,11 +16,23 @@ export function newNotes(): Notes {
 }
 
 export function modifyNotes(notes: Notes, cell: number, value: number): Notes {
-  const newNotes: Notes = [...notes];
-  const cellNotes = [...notes[cell]];
-  cellNotes[value] = !cellNotes[value];
-  newNotes[cell] = cellNotes;
-  return newNotes;
+  return produce(notes, (draftNotes) => {
+    draftNotes[cell][value] = !draftNotes[cell][value];
+  });
+}
+
+/** Update notes in response to setting an actual value in a cell */
+export function makeNotesReact(
+  notes: Notes,
+  cell: number,
+  value: number
+): Notes {
+  return produce(notes, (draftNotes) => {
+    const neighbors = getAllCellNeighbors(cell);
+    neighbors.forEach((index) => {
+      draftNotes[index][value] = false;
+    });
+  });
 }
 
 export function hasNote(notes: Notes, cell: number, value: number): boolean {
