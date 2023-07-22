@@ -9,7 +9,7 @@ interface ToggleButtonProps {
 export function ToggleButton({ isOn, onToggle, children }: ToggleButtonProps) {
   return (
     <button onClick={onToggle}>
-      {children} <input type="checkbox" checked={isOn} />
+      {children} <input type="checkbox" checked={isOn} readOnly />
     </button>
   );
 }
