@@ -28,6 +28,15 @@ export default function App() {
   }, [gameIsWon]);
 
   function handleNumberClick(num: number) {
+    if (
+      puzzle[selectedCell] &&
+      puzzle[selectedCell] === solvedPuzzle[selectedCell]
+    ) {
+      const index = puzzle.findIndex(
+        (val, index) => val === num && val === solvedPuzzle[index]
+      );
+      if (index !== -1) setSelectedCell(index);
+    }
     if (notesOn && !puzzle[selectedCell]) {
       updateNotes(selectedCell, num);
     } else if (
