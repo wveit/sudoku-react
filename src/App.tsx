@@ -11,6 +11,7 @@ import { NewGameButton } from "./components/NewGameButton";
 import { ToggleButton, useToggle } from "./components/ToggleButton";
 import { puzzleIsSolved } from "./sudokulib/puzzle-solver";
 import { calculateHowManyLeft } from "./sudokulib/util";
+
 export default function App() {
   const [selectedCell, setSelectedCell] = useState(0);
   const { unsolvedPuzzle, difficulty, makeNewPuzzle } = useUnsolvedPuzzle();
@@ -39,11 +40,20 @@ export default function App() {
     }
   }
 
+  function handleErase() {
+    if (
+      puzzle[selectedCell] &&
+      puzzle[selectedCell] !== solvedPuzzle[selectedCell]
+    ) {
+      updatePuzzle(selectedCell, 0);
+    }
+  }
+
   return (
     <div className="App">
       <main>
         <h1>Sudoku</h1>
-        <div className="flex">
+        <div className="flex-row">
           <NewGameButton onNewGameRequest={makeNewPuzzle} />
           <span>{difficulty}</span>
         </div>
@@ -55,10 +65,11 @@ export default function App() {
           selectedCell={selectedCell}
           notes={notes}
         />
-        <div>
+        <div className="flex-row">
           <ToggleButton isOn={notesOn} onToggle={toggleNotes}>
             Notes
           </ToggleButton>
+          <button onClick={handleErase}>Erase</button>
         </div>
         <NumberBar
           onNumberClick={handleNumberClick}
