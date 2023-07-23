@@ -1,5 +1,6 @@
 .NewGameButton {
   position: relative;
+  display: inline-block;
 }
 
 .NewGameButton--dropdown {

@@ -1,0 +1,12 @@
+.NumberBar {
+  display: flex;
+  width: 100%;
+  justify-content: stretch;
+}
+
+.NumberBar > * {
+  display: block;
+  flex-grow: 1;
+  padding: 0.2rem;
+  margin: 0.2rem;
+}

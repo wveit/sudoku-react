@@ -6,7 +6,7 @@ interface NumberBarProps {
 }
 export function NumberBar({ onNumberClick, howManyLeft }: NumberBarProps) {
   return (
-    <div style={{ display: "flex" }}>
+    <div className="NumberBar">
       {range(1, 9).map((num) => (
         <button
           key={num}

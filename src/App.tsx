@@ -40,26 +40,31 @@ export default function App() {
   }
 
   return (
-    <div>
-      <h1>Sudoku</h1>
-      <div className="flex">
-        <NewGameButton onNewGameRequest={makeNewPuzzle} />
-        <div>{difficulty}</div>
-      </div>
-      <SudokuBoard
-        puzzle={puzzle}
-        solvedPuzzle={solvedPuzzle}
-        unsolvedPuzzle={unsolvedPuzzle}
-        onCellClick={setSelectedCell}
-        selectedCell={selectedCell}
-        notes={notes}
-      />
-      <div className="flex">
-        <ToggleButton isOn={notesOn} onToggle={toggleNotes}>
-          Notes
-        </ToggleButton>
-      </div>
-      <NumberBar onNumberClick={handleNumberClick} howManyLeft={howManyLeft} />
+    <div className="App">
+      <main>
+        <h1>Sudoku</h1>
+        <div className="flex">
+          <NewGameButton onNewGameRequest={makeNewPuzzle} />
+          <span>{difficulty}</span>
+        </div>
+        <SudokuBoard
+          puzzle={puzzle}
+          solvedPuzzle={solvedPuzzle}
+          unsolvedPuzzle={unsolvedPuzzle}
+          onCellClick={setSelectedCell}
+          selectedCell={selectedCell}
+          notes={notes}
+        />
+        <div>
+          <ToggleButton isOn={notesOn} onToggle={toggleNotes}>
+            Notes
+          </ToggleButton>
+        </div>
+        <NumberBar
+          onNumberClick={handleNumberClick}
+          howManyLeft={howManyLeft}
+        />
+      </main>
     </div>
   );
 }

@@ -1,11 +1,27 @@
+@import "./styles/reset.css";
 @import "./styles/SudokuBoard.css";
 @import "./styles/NewGameButton.css";
+@import "./styles/NumberBar.css";
 
-.flex {
+.App {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.flex > * {
-  margin-right: 0.5rem;
+h1 {
+  text-align: center;
+  padding-top: 0.2rem;
 }
+
+main {
+  width: 300px;
+}
+
+main > * {
+  margin-top: 0.5rem;
+}
+
