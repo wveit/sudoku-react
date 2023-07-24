@@ -18,7 +18,8 @@ h1 {
 }
 
 main {
-  width: 300px;
+  width: 100%;
+  max-width: 760px;
 }
 
 main > * {
@@ -33,4 +34,18 @@ main > * {
 .flex-row > * {
   margin-right: 0.3rem;
   padding: 0.2rem;
+}
+
+.Square--outer {
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+}
+
+.Square--inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }

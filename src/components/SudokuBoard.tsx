@@ -3,6 +3,7 @@ import { cellsInEachSquare, range } from "../sudokulib/util";
 
 import type { Puzzle } from "../sudokulib/puzzles";
 import { Notes, hasNote } from "../sudokulib/notes";
+import { Square } from "./Square";
 
 interface SudokuBoardProps {
   puzzle: Puzzle;
@@ -58,17 +59,19 @@ export function SudokuBoard({
 export function SudokuGrid({ children }: { children: ReactNode }) {
   const childArray = Children.toArray(children);
   return (
-    <div className="SudokuBoard">
-      {cellsInEachSquare.map((square, squareIndex) => (
-        <div key={squareIndex} className="SudokuBoard--square">
-          {square.map((cellIndex, index) => (
-            <div key={index} className="SudokuBoard--cell">
-              {childArray[cellIndex]}
-            </div>
-          ))}
-        </div>
-      ))}
-    </div>
+    <Square>
+      <div className="SudokuBoard">
+        {cellsInEachSquare.map((square, squareIndex) => (
+          <div key={squareIndex} className="SudokuBoard--square">
+            {square.map((cellIndex, index) => (
+              <div key={index} className="SudokuBoard--cell">
+                {childArray[cellIndex]}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </Square>
   );
 }
 
