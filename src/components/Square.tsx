@@ -7,7 +7,10 @@ interface SquareProps extends HTMLAttributes<HTMLDivElement> {
 export function Square(props: SquareProps) {
   const { children, className, ...rest } = props;
   return (
-    <div className={"Square--outer " + className} {...rest}>
+    <div
+      className={"Square--outer" + (className ? ` ${className}` : "")}
+      {...rest}
+    >
       <div className="Square--inner">{children}</div>
     </div>
   );
