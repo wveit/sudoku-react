@@ -1,0 +1,48 @@
+/* Square component */
+.Square--outer {
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+}
+
+.Square--inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* DivButton Component */
+
+.DivButton {
+  all: unset;
+}
+.DivButton {
+  border: 1px solid gray;
+  border-radius: 6px;
+  padding: 0.2rem;
+  margin: 0.2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+
+
+.DivButton:hover {
+  background-color: rgba(128, 128, 128, 0.196);
+}
+
+.DivButton:active {
+  background-color: rgba(128, 128, 128, 0.466);
+}
+
+.DivButton[disabled] {
+  background-color: rgb(195, 195, 195);
+  color: gray;
+}

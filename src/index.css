@@ -1,8 +1,10 @@
 @import "./styles/reset.css";
+@import "./styles/Various.css";
 @import "./styles/SudokuBoard.css";
 @import "./styles/NewGameButton.css";
 @import "./styles/NumberBar.css";
 
+/* App component styles */
 .App {
   position: absolute;
   width: 100%;
@@ -34,18 +36,4 @@ main > * {
 .flex-row > * {
   margin-right: 0.3rem;
   padding: 0.2rem;
-}
-
-.Square--outer {
-  width: 100%;
-  padding-top: 100%;
-  position: relative;
-}
-
-.Square--inner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
 }
