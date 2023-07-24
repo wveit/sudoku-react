@@ -1,0 +1,25 @@
+- Fix Button styles
+  - Lock down the size (right now mobile browsers especially are reshaping buttons)
+  - Big enough to comfortably click
+- Track mistakes
+  - Display
+  - Optionally set mistake limit
+  - If mistake limit reached, prompt to do one of [restart, new-game, continue-with-mistakes]
+- Fill-in-notes button
+- Timer
+- Puzzle generator should not produce puzzles with more than one solution
+- Improve the puzzle generator variety
+  - More difficulty levels
+  - More variety in puzzle arrangement
+- Improve layout for various sizes and orientations
+  - Right now you can't see the whole sudoku board and the buttons in mobile-landscape or ipad
+- Improve victory-dialog
+- Progressive web app - Allow installing just like native app
+- Allow usage of keyboard to navigate cells and enter numbers (and maybe other controls too)
+
+- Save game state to local storage
+  - Load game state from local storage on startup
+  - Figure out how to handle more than one tab at the same time (maybe localstorage events to keep all games in sync?)
+- ?? Should user be allowed to continue modifying puzzle/notes if a mistake is on the board?
+- ?? Should there be a free-solve mode, that allows entering mistakes
+- ?? Undo/redo (only required if free-solve-mode or playing with mistakes is allowed)
