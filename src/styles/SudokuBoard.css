@@ -3,6 +3,8 @@
   grid-template-columns: repeat(3, 1fr);
   border: 2px solid black;
 
+  font-size: calc(var(--sudoku-board-size)/15);
+
   width: 100%;
   height: 100%;
 }
@@ -56,7 +58,8 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 1fr;
-  font-size: 0.5rem;
+  font-size: calc(var(--sudoku-board-size)/34);
+  color: rgb(49, 49, 49);
   width: 100%;
 }
 
