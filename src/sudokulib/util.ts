@@ -83,3 +83,7 @@ export function calculateHowManyLeft(puzzle: Puzzle, solved: Puzzle) {
   });
   return valueMap;
 }
+
+export function randomInt(first: number, last: number) {
+  return Math.floor(Math.random() * (last - first + 1) + first);
+}

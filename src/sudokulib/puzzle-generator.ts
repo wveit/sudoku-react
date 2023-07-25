@@ -1,134 +1,57 @@
-import { parsePuzzle, puzzle1String } from "./puzzles";
-import type { Puzzle, Difficulty } from "./puzzles";
+import {
+  antiTranspose,
+  flipHorizontal,
+  flipVertical,
+  shuffleColumns,
+  shuffleNumberValues,
+  shuffleRows,
+  transpose,
+} from "./puzzle-shuffler";
+import { Difficulty, Puzzle, parsePuzzle } from "./puzzles";
+import { randomInt } from "./util";
 
-const difficultyMap: Record<Difficulty, number> = {
-  EASY: 0,
-  MEDIUM: 2,
-  HARD: 4,
+export const samplePuzzles: Record<Difficulty, string[]> = {
+  EASY: [
+    "100060074598300061004020005020608009900032700603010002070000040049001627250740008",
+    "960370010185429760070001008031000602009050801007003049006002000008705096750000080",
+    "902415000005060000370000061210396005406000002003080190649031057500600004807509000",
+  ],
+  MEDIUM: [
+    "090650000000092601760000290408005000000279458000004000040000100080906034500040907",
+    "401790500000006900090031008210064000000102403084000100132859000900000000800000059",
+    "020031060306005007509070000030000605000120030067080019008300000600800470000760000",
+  ],
+  HARD: [
+    "400070008100002700000850000003004900006305002005000800000000000900003200004007060",
+    "680032000004000200209704000070000108001300000906871000000407000300000086090000052",
+    "049100000001006000005280090096005308010063400000000000003000980700000010060030000",
+  ],
 };
 
-const seed = parsePuzzle(puzzle1String);
+function getRandomSamplePuzzle(difficulty: Difficulty): Puzzle {
+  const puzzleStringArray = samplePuzzles[difficulty];
+  const randomSeedString =
+    puzzleStringArray[randomInt(0, puzzleStringArray.length - 1)];
+  const seed = parsePuzzle(randomSeedString);
+  return seed;
+}
 
-export function generatePuzzle(difficulty: Difficulty): Puzzle {
-  const newPuzzle = [...seed];
-  removeCells(newPuzzle, difficultyMap[difficulty]);
+const flipFunctions = [flipHorizontal, flipVertical, transpose, antiTranspose];
+function randomFlipFunction() {
+  return flipFunctions[randomInt(0, flipFunctions.length - 1)];
+}
 
-  for (let i = 0; i < 40; i++) {
-    shuffleCells(newPuzzle);
+export function shufflePuzzle(puzzle: Puzzle): Puzzle {
+  let newPuzzle = shuffleNumberValues(puzzle);
+  for (let i = 0; i < 30; i++) {
+    newPuzzle = randomFlipFunction()(newPuzzle);
+    newPuzzle = shuffleRows(newPuzzle);
+    newPuzzle = shuffleColumns(newPuzzle);
   }
-
   return newPuzzle;
 }
 
-function removeCells(puzzle: Puzzle, count: number) {
-  for (let i = 0; i < count; i++) {
-    while (true) {
-      const index = Math.floor(Math.random() * 81);
-      if (puzzle[index]) {
-        puzzle[index] = 0;
-        break;
-      }
-    }
-  }
-  return puzzle;
-}
-
-function swapColumns(puzzle: Puzzle, col1: number, col2: number) {
-  const start1 = col1;
-  const start2 = col2;
-
-  for (let i = 0; i < 9; i++) {
-    const cell1 = start1 + i * 9;
-    const cell2 = start2 + i * 9;
-    const temp = puzzle[cell1];
-    puzzle[cell1] = puzzle[cell2];
-    puzzle[cell2] = temp;
-  }
-}
-
-function randomInt(first: number, last: number) {
-  return Math.floor(Math.random() * (last - first + 1) + first);
-}
-
-function randomTwoDifferentInts(first: number, last: number) {
-  const num1 = randomInt(first, last);
-  let num2 = randomInt(first, last);
-  while (num1 === num2) num2 = randomInt(first, last);
-  return [num1, num2];
-}
-
-function swapRandomColumns(puzzle: Puzzle) {
-  const squareColumn = randomInt(0, 2);
-  const [col1Offset, col2Offset] = randomTwoDifferentInts(0, 2);
-  const col1 = squareColumn * 3 + col1Offset;
-  const col2 = squareColumn * 3 + col2Offset;
-  swapColumns(puzzle, col1, col2);
-}
-
-function swapRows(puzzle: Puzzle, row1: number, row2: number) {
-  const start1 = row1 * 9;
-  const start2 = row2 * 9;
-
-  for (let i = 0; i < 9; i++) {
-    const cell1 = start1 + i;
-    const cell2 = start2 + i;
-    const temp = puzzle[cell1];
-    puzzle[cell1] = puzzle[cell2];
-    puzzle[cell2] = temp;
-  }
-}
-
-function swapRandomRows(puzzle: Puzzle) {
-  const squareRow = randomInt(0, 2);
-  const [row1Offset, row2Offset] = randomTwoDifferentInts(0, 2);
-  const row1 = squareRow * 3 + row1Offset;
-  const row2 = squareRow * 3 + row2Offset;
-  swapRows(puzzle, row1, row2);
-}
-
-function swapSquareRows(
-  puzzle: Puzzle,
-  squareRow1: number,
-  squareRow2: number
-) {
-  const row1 = squareRow1 * 3;
-  const row2 = squareRow2 * 3;
-  for (let i = 0; i < 3; i++) {
-    swapRows(puzzle, row1 + i, row2 + i);
-  }
-}
-
-function swapRandomSquareRows(puzzle: Puzzle) {
-  const [squareRow1, squareRow2] = randomTwoDifferentInts(0, 2);
-  swapSquareRows(puzzle, squareRow1, squareRow2);
-}
-
-function swapSquareColumns(
-  puzzle: Puzzle,
-  squareCol1: number,
-  squareCol2: number
-) {
-  const col1 = squareCol1 * 3;
-  const col2 = squareCol2 * 3;
-  for (let i = 0; i < 2; i++) {
-    swapColumns(puzzle, col1, col2);
-  }
-}
-
-function swapRandomSquareColumns(puzzle: Puzzle) {
-  const [squareCol1, squareCol2] = randomTwoDifferentInts(0, 2);
-  swapSquareColumns(puzzle, squareCol1, squareCol2);
-}
-
-const shuffleFns = [
-  swapRandomColumns,
-  swapRandomRows,
-  swapRandomSquareColumns,
-  swapRandomSquareRows,
-];
-
-function shuffleCells(puzzle: Puzzle) {
-  const i = Math.floor(Math.random() * shuffleFns.length);
-  const shuffle = shuffleFns[i];
-  shuffle(puzzle);
+export function generatePuzzle(difficulty: Difficulty): Puzzle {
+  let puzzle = getRandomSamplePuzzle(difficulty);
+  return shufflePuzzle(puzzle);
 }

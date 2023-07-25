@@ -1,6 +1,3 @@
-- Fix Button styles
-  - Lock down the size (right now mobile browsers especially are reshaping buttons)
-  - Big enough to comfortably click
 - Track mistakes
   - Display
   - Optionally set mistake limit
@@ -16,6 +13,8 @@
 - Improve victory-dialog
 - Progressive web app - Allow installing just like native app
 - Allow usage of keyboard to navigate cells and enter numbers (and maybe other controls too)
+- Resize numbers inside SudokuBoard when board resizes - maximize readability
+- Resize Square when not enough vertical space (currently only resizes based on horizontal space)
 
 - Save game state to local storage
   - Load game state from local storage on startup
