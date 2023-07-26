@@ -64,7 +64,7 @@ export default function App() {
         <h1>Sudoku</h1>
         <div className="flex-row">
           <NewGameButton onNewGameRequest={makeNewPuzzle} />
-          <span>{difficulty}</span>
+          <div>Level: {onlyCapitalizeFirstLetter(difficulty)}</div>
         </div>
         <SudokuBoard
           puzzle={puzzle}
@@ -87,4 +87,8 @@ export default function App() {
       </main>
     </div>
   );
+}
+
+function onlyCapitalizeFirstLetter(str: string) {
+  return str[0].toUpperCase() + str.substring(1).toLowerCase();
 }
