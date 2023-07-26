@@ -14,6 +14,7 @@ import { calculateHowManyLeft } from "./sudokulib/util";
 import { useMistakes } from "./hooks/use-mistakes";
 import { useTimer } from "./hooks/use-timer";
 import { Timer } from "./components/Timer";
+import { Square } from "./components/Square";
 
 export default function App() {
   const [selectedCell, setSelectedCell] = useState(0);
@@ -79,14 +80,17 @@ export default function App() {
           <div>Mistakes: {mistakeCount}</div>
           <Timer {...timer} />
         </div>
-        <SudokuBoard
-          puzzle={puzzle}
-          solvedPuzzle={solvedPuzzle}
-          unsolvedPuzzle={unsolvedPuzzle}
-          onCellClick={setSelectedCell}
-          selectedCell={selectedCell}
-          notes={notes}
-        />
+        <Square>
+          <SudokuBoard
+            puzzle={puzzle}
+            solvedPuzzle={solvedPuzzle}
+            unsolvedPuzzle={unsolvedPuzzle}
+            onCellClick={setSelectedCell}
+            selectedCell={selectedCell}
+            notes={notes}
+          />
+          {timer.isPaused ? <div className="paused-screen">Paused</div> : null}
+        </Square>
         <div className="flex-row">
           <ToggleButton isOn={notesOn} onToggle={toggleNotes}>
             Notes

@@ -6,11 +6,11 @@ export function useTimer() {
 
   function reset() {
     setAccumulatedTime(0);
-    setStartTime(-1);
+    setStartTime(new Date().getTime());
   }
 
   function pause() {
-    if (startTime < 0) return; // it's already paused
+    if (startTime < 0) return;
 
     const currentTime = new Date().getTime();
     const elapsedTime = currentTime - startTime;
