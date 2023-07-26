@@ -37,3 +37,11 @@ main > * {
   margin-right: 0.3rem;
   padding: 0.2rem;
 }
+
+.mistake-button {
+  color: rgb(158, 0, 32);
+}
+
+.mistake-button[disabled] {
+  color: inherit;
+}

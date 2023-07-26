@@ -52,7 +52,7 @@ export default function App() {
     }
   }
 
-  function handleErase() {
+  function handleEraseMistake() {
     if (
       puzzle[selectedCell] &&
       puzzle[selectedCell] !== solvedPuzzle[selectedCell]
@@ -82,7 +82,13 @@ export default function App() {
           <ToggleButton isOn={notesOn} onToggle={toggleNotes}>
             Notes
           </ToggleButton>
-          <button onClick={handleErase}>Erase</button>
+          <button
+            onClick={handleEraseMistake}
+            className={"mistake-button"}
+            disabled={!mistakeIsPresent}
+          >
+            Erase Mistake
+          </button>
         </div>
         <NumberBar
           onNumberClick={handleNumberClick}
