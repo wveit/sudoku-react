@@ -11,6 +11,7 @@ import { NewGameButton } from "./components/NewGameButton";
 import { ToggleButton, useToggle } from "./components/ToggleButton";
 import { puzzleIsSolved } from "./sudokulib/puzzle-solver";
 import { calculateHowManyLeft } from "./sudokulib/util";
+import { useMistakes } from "./hooks/use-mistakes";
 
 export default function App() {
   const [selectedCell, setSelectedCell] = useState(0);
@@ -20,6 +21,7 @@ export default function App() {
   const [notesOn, toggleNotes] = useToggle(false);
   const { notes, updateNotes, reactNotesToCellChange } =
     useNotes(unsolvedPuzzle);
+  const { mistakeCount, mistakeIsPresent } = useMistakes(solvedPuzzle, puzzle);
   const gameIsWon = puzzleIsSolved(puzzle);
   const howManyLeft = calculateHowManyLeft(puzzle, solvedPuzzle);
 
@@ -28,6 +30,7 @@ export default function App() {
   }, [gameIsWon]);
 
   function handleNumberClick(num: number) {
+    if (mistakeIsPresent) return;
     if (
       puzzle[selectedCell] &&
       puzzle[selectedCell] === solvedPuzzle[selectedCell]
@@ -65,6 +68,7 @@ export default function App() {
         <div className="flex-row">
           <NewGameButton onNewGameRequest={makeNewPuzzle} />
           <div>Level: {onlyCapitalizeFirstLetter(difficulty)}</div>
+          <div>Mistakes: {mistakeCount}</div>
         </div>
         <SudokuBoard
           puzzle={puzzle}
@@ -89,6 +93,7 @@ export default function App() {
   );
 }
 
+/* Helpers */
 function onlyCapitalizeFirstLetter(str: string) {
   return str[0].toUpperCase() + str.substring(1).toLowerCase();
 }
