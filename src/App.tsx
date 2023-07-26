@@ -12,6 +12,8 @@ import { ToggleButton, useToggle } from "./components/ToggleButton";
 import { puzzleIsSolved } from "./sudokulib/puzzle-solver";
 import { calculateHowManyLeft } from "./sudokulib/util";
 import { useMistakes } from "./hooks/use-mistakes";
+import { useTimer } from "./hooks/use-timer";
+import { Timer } from "./components/Timer";
 
 export default function App() {
   const [selectedCell, setSelectedCell] = useState(0);
@@ -27,6 +29,11 @@ export default function App() {
   );
   const gameIsWon = puzzleIsSolved(puzzle);
   const howManyLeft = calculateHowManyLeft(puzzle, solvedPuzzle);
+  const timer = useTimer();
+  useEffect(() => {
+    timer.reset();
+    timer.resume();
+  }, [unsolvedPuzzle]);
 
   useEffect(() => {
     if (gameIsWon) alert("You won!!!");
@@ -70,6 +77,7 @@ export default function App() {
           <NewGameButton onNewGameRequest={makeNewPuzzle} />
           <div>Level: {onlyCapitalizeFirstLetter(difficulty)}</div>
           <div>Mistakes: {mistakeCount}</div>
+          <Timer {...timer} />
         </div>
         <SudokuBoard
           puzzle={puzzle}
