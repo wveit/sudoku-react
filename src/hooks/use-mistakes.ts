@@ -7,7 +7,7 @@ function mistakesAreSame(m1: Mistake, m2: Mistake) {
   return m1.index === m2.index && m1.value === m2.value;
 }
 
-export function findMistakes(solvedPuzzle: Puzzle, puzzle: Puzzle) {
+function findMistakes(solvedPuzzle: Puzzle, puzzle: Puzzle) {
   const mistakes: Mistake[] = [];
   solvedPuzzle.forEach((correctValue, index) => {
     const puzzleValue = puzzle[index];
@@ -37,5 +37,5 @@ export function useMistakes(solvedPuzzle: Puzzle, puzzle: Puzzle) {
     setMistakeCount(0);
   }, [solvedPuzzle]);
 
-  return { mistakeCount, mistakeIsPresent };
+  return { mistakeCount, mistakeIsPresent, currentMistake };
 }

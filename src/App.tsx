@@ -21,7 +21,10 @@ export default function App() {
   const [notesOn, toggleNotes] = useToggle(false);
   const { notes, updateNotes, reactNotesToCellChange } =
     useNotes(unsolvedPuzzle);
-  const { mistakeCount, mistakeIsPresent } = useMistakes(solvedPuzzle, puzzle);
+  const { mistakeCount, mistakeIsPresent, currentMistake } = useMistakes(
+    solvedPuzzle,
+    puzzle
+  );
   const gameIsWon = puzzleIsSolved(puzzle);
   const howManyLeft = calculateHowManyLeft(puzzle, solvedPuzzle);
 
@@ -53,11 +56,9 @@ export default function App() {
   }
 
   function handleEraseMistake() {
-    if (
-      puzzle[selectedCell] &&
-      puzzle[selectedCell] !== solvedPuzzle[selectedCell]
-    ) {
-      updatePuzzle(selectedCell, 0);
+    const mistakeIndex = currentMistake.index;
+    if (mistakeIndex !== -1) {
+      updatePuzzle(mistakeIndex, 0);
     }
   }
 
