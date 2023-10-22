@@ -1,50 +1,54 @@
 type TimerStatus = "STOPPED" | "PAUSED" | "RUNNING";
 
-export class Timer {
-  private status = "STOPPED" as TimerStatus;
-  private startTime = 0;
-  private accumulatedTime = 0;
+export interface Timer {
+  status: TimerStatus;
+  accumulatedTime: number;
+  intervalStart: number;
+}
 
-  getMillis = () => {
-    let currentInterval = 0;
-    if (this.startTime !== 0) {
-      currentInterval = Date.now() - this.startTime;
-    }
-    return this.accumulatedTime + currentInterval;
+export function makeNewTimer(): Timer {
+  return {
+    status: "STOPPED",
+    accumulatedTime: 0,
+    intervalStart: 0,
   };
+}
 
-  getStatus = () => this.status;
+export function startTimer(timer: Timer): Timer {
+  if (timer.status === "RUNNING") {
+    return timer;
+  }
+  return { ...timer, intervalStart: Date.now(), status: "RUNNING" };
+}
 
-  start = () => {
-    if (this.status === "RUNNING") {
-      return;
-    }
-
-    if (this.status === "STOPPED") {
-      this.accumulatedTime = 0;
-    }
-
-    this.startTime = Date.now();
-    this.status = "RUNNING";
+export function pauseTimer(timer: Timer): Timer {
+  if (timer.status !== "RUNNING") {
+    return timer;
+  }
+  const interval = Date.now() - timer.intervalStart;
+  return {
+    status: "PAUSED",
+    accumulatedTime: timer.accumulatedTime + interval,
+    intervalStart: 0,
   };
+}
 
-  pause = () => {
-    const currentInterval = Date.now() - this.startTime;
-    this.accumulatedTime += currentInterval;
-    this.startTime = 0;
-    this.status = "PAUSED";
+export function stopTimer(timer: Timer): Timer {
+  if (timer.status === "STOPPED") {
+    return timer;
+  }
+  const interval = Date.now() - timer.intervalStart;
+  return {
+    status: "STOPPED",
+    accumulatedTime: timer.accumulatedTime + interval,
+    intervalStart: 0,
   };
+}
 
-  stop = () => {
-    const currentInterval = Date.now() - this.startTime;
-    this.accumulatedTime += currentInterval;
-    this.startTime = 0;
-    this.status = "STOPPED";
-  };
-
-  reset = () => {
-    this.accumulatedTime = 0;
-    this.startTime = 0;
-    this.status = "STOPPED";
-  };
+export function getTimerMillis(timer: Timer): number {
+  let interval = 0;
+  if (timer.status === "RUNNING") {
+    interval = Date.now() - timer.intervalStart;
+  }
+  return timer.accumulatedTime + interval;
 }

@@ -12,7 +12,7 @@ import { ToggleButton, useToggle } from "./components/ToggleButton";
 import { puzzleIsSolved } from "./sudokulib/puzzle-solver";
 import { calculateHowManyLeft } from "./sudokulib/util";
 import { useMistakes } from "./hooks/use-mistakes";
-import { useTimer } from "./hooks/use-timer";
+import { useTimer } from "./timer/use-timer";
 import { Timer } from "./components/Timer";
 import { Square } from "./components/Square";
 
@@ -37,7 +37,10 @@ export default function App() {
   }, [unsolvedPuzzle]);
 
   useEffect(() => {
-    if (gameIsWon) alert("You won!!!");
+    if (gameIsWon) {
+      alert("You won!!!");
+      timer.stop();
+    }
   }, [gameIsWon]);
 
   function handleNumberClick(num: number) {
