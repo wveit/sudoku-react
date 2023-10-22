@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import type { Difficulty, Puzzle } from "../sudokulib/puzzles";
 import { solve } from "../sudokulib/puzzle-solver";
 import { generatePuzzle } from "../sudokulib/puzzle-generator";
-import { makeNotesReact, modifyNotes, newNotes } from "../sudokulib/notes";
+import {
+  makeNotesReact,
+  modifyNotes,
+  newNotes,
+  fillOutNotes as _fillOutNotes,
+} from "../sudokulib/notes";
 
 export function useUnsolvedPuzzle() {
   const [difficulty, setDifficulty] = useState<Difficulty>("EASY");
@@ -55,9 +60,13 @@ export function useNotes(unsolvedPuzzle: Puzzle) {
     setNotes(newNotes);
   }
 
+  function fillOutNotes(puzzle: Puzzle) {
+    setNotes(_fillOutNotes(puzzle));
+  }
+
   useEffect(() => {
     setNotes(newNotes());
   }, [unsolvedPuzzle]);
 
-  return { notes, updateNotes, reactNotesToCellChange };
+  return { notes, updateNotes, reactNotesToCellChange, fillOutNotes };
 }

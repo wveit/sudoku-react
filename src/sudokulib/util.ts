@@ -67,6 +67,7 @@ export function getSquareCells(square: number) {
   return cellsInEachSquare[square];
 }
 
+/** get indices for all cells that are in the same row/col/square as the current cell */
 export function getAllCellNeighbors(cell: number) {
   const set = new Set<number>([
     ...getRowCells(getRowNumber(cell)),

@@ -22,7 +22,7 @@ export default function App() {
   const { solvedPuzzle } = useSolvedPuzzle(unsolvedPuzzle);
   const { puzzle, updatePuzzle } = usePlayerPuzzle(unsolvedPuzzle);
   const [notesOn, toggleNotes] = useToggle(false);
-  const { notes, updateNotes, reactNotesToCellChange } =
+  const { notes, updateNotes, reactNotesToCellChange, fillOutNotes } =
     useNotes(unsolvedPuzzle);
   const { mistakeCount, mistakeIsPresent, currentMistake } = useMistakes(
     solvedPuzzle,
@@ -94,7 +94,7 @@ export default function App() {
           />
           {timer.isPaused ? <div className="paused-screen">Paused</div> : null}
         </Square>
-        <div className="flex-row">
+        <div className="flex-row underboard-controls">
           <ToggleButton isOn={notesOn} onToggle={toggleNotes}>
             Notes
           </ToggleButton>
@@ -105,6 +105,7 @@ export default function App() {
           >
             Erase Mistake
           </button>
+          <button onClick={() => fillOutNotes(puzzle)}>Fill in notes</button>
         </div>
         <NumberBar
           onNumberClick={handleNumberClick}

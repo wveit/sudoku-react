@@ -24,16 +24,16 @@ main {
   max-width: 760px;
 }
 
-main > * {
+main>* {
   margin-top: 0.5rem;
 }
 
 .flex-row {
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
 
-.flex-row > * {
+.flex-row>* {
   margin-right: 0.3rem;
   padding: 0.2rem;
 }
@@ -58,4 +58,8 @@ main > * {
 
 .App .SudokuBoard {
   position: absolute;
+}
+
+.underboard-controls>*:last-child {
+  margin-left: auto;
 }
