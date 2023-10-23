@@ -38,8 +38,8 @@ export default function App() {
 
   useEffect(() => {
     if (gameIsWon) {
-      alert("You won!!!");
       timer.stop();
+      alert("You won!!!");
     }
   }, [gameIsWon]);
 
