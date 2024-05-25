@@ -15,6 +15,7 @@ import { useMistakes } from "./hooks/use-mistakes";
 import { useTimer } from "./timer/use-timer";
 import { Timer } from "./components/Timer";
 import { Square } from "./components/Square";
+import { GameIsWon } from "./components/GameIsWon";
 
 export default function App() {
   const [selectedCell, setSelectedCell] = useState(0);
@@ -36,10 +37,12 @@ export default function App() {
     timer.resume();
   }, [unsolvedPuzzle]);
 
+  const [showGameIsWon, setShowGameIsWon] = useState(false);
+
   useEffect(() => {
     if (gameIsWon) {
       timer.stop();
-      alert("You won!!!");
+      setShowGameIsWon(true);
     }
   }, [gameIsWon]);
 
@@ -112,6 +115,7 @@ export default function App() {
           howManyLeft={howManyLeft}
         />
       </main>
+      <GameIsWon show={showGameIsWon} onOk={() => setShowGameIsWon(false)} />
     </div>
   );
 }

@@ -3,6 +3,7 @@
 @import "./styles/SudokuBoard.css";
 @import "./styles/NewGameButton.css";
 @import "./styles/NumberBar.css";
+@import "./styles/GameIsWon.css";
 
 /* App component styles */
 .App {
